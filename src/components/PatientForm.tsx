@@ -1,4 +1,13 @@
+import { useForm } from 'react-hook-form';
+import { Error } from './Error';
+
 export default function PatientForm() {
+
+    const { register, handleSubmit, formState: {errors} } = useForm();
+
+    const registerPatient = () => {
+        console.log('Registrando Paciente');
+    }
   
     return (
       <div className="md:w-1/2 lg:w-2/5 mx-5">
@@ -12,6 +21,7 @@ export default function PatientForm() {
           <form 
               className="bg-white shadow-md rounded-lg py-10 px-5 mb-10"
               noValidate
+                onSubmit={handleSubmit(registerPatient)}
           >
                 <div className="mb-5">
                     <label htmlFor="name" className="text-sm uppercase font-bold">
@@ -21,8 +31,16 @@ export default function PatientForm() {
                         id="name"
                         className="w-full p-3  border border-gray-100"  
                         type="text" 
-                        placeholder="Nombre del Paciente" 
+                        placeholder="Nombre del Paciente"
+                        {...register('name', {
+                            required: 'El nombre del paciente es requerido',
+                            minLength: { value: 3, message: 'El nombre debe tener al menos 3 caracteres' },
+                            maxLength: { value: 20, message: 'El nombre no puede tener más de 20 caracteres' }
+                        }) }
                     />
+                    { errors.name && (<Error>{errors.name?.message?.toString()}</Error>) }
+                    { errors.minLength && (<Error>{errors.minLength?.message?.toString()}</Error>) }
+                    { errors.maxLength && (<Error>{errors.maxLength?.message?.toString()}</Error>) }
                 </div>
   
                 <div className="mb-5">
