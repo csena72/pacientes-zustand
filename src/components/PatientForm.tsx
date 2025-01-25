@@ -1,12 +1,13 @@
 import { useForm } from 'react-hook-form';
 import { Error } from './Error';
+import { DraftPatient } from '../types';
 
 export default function PatientForm() {
 
-    const { register, handleSubmit, formState: {errors} } = useForm();
+    const { register, handleSubmit, formState: {errors} } = useForm<DraftPatient>();
 
-    const registerPatient = () => {
-        console.log('Registrando Paciente');
+    const registerPatient = (data: DraftPatient) => {
+        console.log(data);
     }
   
     return (
@@ -33,14 +34,10 @@ export default function PatientForm() {
                         type="text" 
                         placeholder="Nombre del Paciente"
                         {...register('name', {
-                            required: 'El nombre del paciente es requerido',
-                            minLength: { value: 3, message: 'El nombre debe tener al menos 3 caracteres' },
-                            maxLength: { value: 20, message: 'El nombre no puede tener más de 20 caracteres' }
+                            required: 'El nombre del paciente es requerido'
                         }) }
                     />
-                    { errors.name && (<Error>{errors.name?.message?.toString()}</Error>) }
-                    { errors.minLength && (<Error>{errors.minLength?.message?.toString()}</Error>) }
-                    { errors.maxLength && (<Error>{errors.maxLength?.message?.toString()}</Error>) }
+                    { errors.name && (<Error>{errors.name?.message}</Error>) }
                 </div>
   
                 <div className="mb-5">
@@ -56,7 +53,7 @@ export default function PatientForm() {
                         required: 'El propietario es requerido',
                     }) }
                   />
-                  { errors.caretaker && (<Error>{errors.caretaker?.message?.toString()}</Error>) }
+                  { errors.caretaker && (<Error>{errors.caretaker?.message}</Error>) }
                 </div>
   
               <div className="mb-5">
@@ -76,7 +73,7 @@ export default function PatientForm() {
                         }
                       })}
                 />
-                { errors.email && (<Error>{errors.email?.message?.toString()}</Error>) }
+                { errors.email && (<Error>{errors.email?.message}</Error>) }
               </div>
   
               <div className="mb-5">
@@ -91,7 +88,7 @@ export default function PatientForm() {
                         required: 'La fecha de alta es requerido',
                     }) }
                   />
-                  { errors.date && (<Error>{errors.date?.message?.toString()}</Error>) }
+                  { errors.date && (<Error>{errors.date?.message}</Error>) }
               </div>
               
               <div className="mb-5">
@@ -106,7 +103,7 @@ export default function PatientForm() {
                         required: 'Los síntomas son requeridos',
                     }) }
                   ></textarea>
-                  { errors.symptoms && (<Error>{errors.symptoms?.message?.toString()}</Error>) }
+                  { errors.symptoms && (<Error>{errors.symptoms?.message}</Error>) }
               </div>
   
               <input
