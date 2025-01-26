@@ -21,7 +21,7 @@ export const PatientDetail = ({ patient }: PatientDetailProps ) => {
         <PatientDetailItem label='Fecha Alta'   value={patient.date.toString()}/>
         <PatientDetailItem label='Síntomas'     value={patient.symptoms}/>
 
-        <div className='flex justify-between mt-10'>
+        <div className='flex flex-col lg:flex-row gap-3 justify-between mt-10'>
             <button
                 type='button'
                 className='bg-indigo-600 hover:bg-indigo-700 hover:cursor-pointer 
